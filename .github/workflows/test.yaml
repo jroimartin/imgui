@@ -1,0 +1,26 @@
+# Copyright 2024 Roi Martin.
+
+name: Test
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  go-test:
+    name: Go test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+      - name: Install dependencies.
+        run: |
+          sudo apt-get update && \
+          sudo apt-get install --assume-yes --no-install-recommends \
+            libwayland-dev libxkbcommon-dev libegl-dev
+      - name: Run "go test"
+        run: go test -tags wayland -cover -race ./...
