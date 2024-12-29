@@ -1,27 +1,5 @@
 // Copyright 2024 Roi Martin.
 
-// Package imgui provides bindings for the [Dear ImGui] library.
-//
-// # Pre-compiled imgui static library
-//
-// This package bundles a pre-compiled cimgui static library to make
-// it easier to use.
-//
-// Run the following command to build the pre-compiled cimgui static
-// library for the running host as well as the corresponding header
-// files:
-//
-//	go generate
-//
-// # Wayland
-//
-// If you are targeting wayland, specify the "wayland" build tag. For
-// instance,
-//
-//	go run -tags wayland github.com/jroimartin/imgui/examples/glfw-opengl@latest
-//
-// [Dear ImGui]: https://github.com/ocornut/imgui
-//
 //go:generate make -f _deps/cimgui.mk
 package imgui
 
