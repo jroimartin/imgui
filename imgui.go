@@ -18,7 +18,7 @@
 // If you are targeting wayland, specify the "wayland" build tag. For
 // instance,
 //
-//	go run -tags wayland ./examples/glfw-opengl
+//	go run -tags wayland github.com/jroimartin/imgui/examples/glfw-opengl@latest
 //
 // [Dear ImGui]: https://github.com/ocornut/imgui
 //
