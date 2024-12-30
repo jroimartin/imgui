@@ -178,7 +178,7 @@ type ConfigFlags = C.ImGuiConfigFlags
 // Configuration flags.
 const (
 	ConfigFlagsNavEnableKeyboard = ConfigFlags(C.ImGuiConfigFlags_NavEnableKeyboard)
-	ConfigFlagsDockingEnable = ConfigFlags(C.ImGuiConfigFlags_DockingEnable)
+	ConfigFlagsDockingEnable     = ConfigFlags(C.ImGuiConfigFlags_DockingEnable)
 )
 
 // SetConfigFlags sets the configuration flags.
