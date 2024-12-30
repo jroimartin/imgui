@@ -29,5 +29,12 @@ jobs:
         run: echo "::remove-matcher owner=go::"
       - name: Install "golangci-lint"
         run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin ${{ env.GOLANGCI_LINT_VERSION }}
-      - name: Run "golangci-lint run"
+      - name: Run "golangci-lint run" on imgui
+        working-directory: .
+        run: golangci-lint run --build-tags wayland --out-format=${{ env.GOLANGCI_LINT_OUT_FORMAT }} ./...
+      - name: Run "golangci-lint run" on examples/demo
+        working-directory: ./examples/demo
+        run: golangci-lint run --build-tags wayland --out-format=${{ env.GOLANGCI_LINT_OUT_FORMAT }} ./...
+      - name: Run "golangci-lint run" on examples/hello-triangle
+        working-directory: ./examples/hello-triangle
         run: golangci-lint run --build-tags wayland --out-format=${{ env.GOLANGCI_LINT_OUT_FORMAT }} ./...

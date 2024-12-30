@@ -1,3 +1,5 @@
+// Copyright 2024 Roi Martin.
+
 // Hello-triangle is a simple program that shows how to use imgui with
 // the GLFW and OpenGL backends.
 package main
@@ -27,7 +29,7 @@ const (
 			gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
 		}
 	`
-	FragmentShaderSource = `
+	fragmentShaderSource = `
 		#version 330 core
 		out vec4 fragColor;
 
@@ -79,7 +81,7 @@ func main() {
 	gl.CompileShader(vertexShader)
 
 	fragmentShader := gl.CreateShader(gl.FRAGMENT_SHADER)
-	cstrs, free = gl.Strs(FragmentShaderSource + "\x00")
+	cstrs, free = gl.Strs(fragmentShaderSource + "\x00")
 	gl.ShaderSource(fragmentShader, 1, cstrs, nil)
 	free()
 	gl.CompileShader(fragmentShader)

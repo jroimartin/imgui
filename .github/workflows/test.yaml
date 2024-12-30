@@ -22,5 +22,12 @@ jobs:
           sudo apt-get update && \
           sudo apt-get install --assume-yes --no-install-recommends \
             libwayland-dev libxkbcommon-dev libegl-dev
-      - name: Run "go test"
+      - name: Run "go test" on imgui
+        working-directory: .
+        run: go test -tags wayland -cover -race ./...
+      - name: Run "go test" on examples/demo
+        working-directory: ./examples/demo
+        run: go test -tags wayland -cover -race ./...
+      - name: Run "go test" on examples/hello-triangle
+        working-directory: ./examples/hello-triangle
         run: go test -tags wayland -cover -race ./...

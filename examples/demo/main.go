@@ -1,3 +1,5 @@
+// Copyright 2024 Roi Martin.
+
 // Demo is a simple program that shows Dear ImGui demo window.
 package main
 
