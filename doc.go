@@ -16,7 +16,7 @@ simple code base that makes it easy to extend it.
 This package bundles a pre-compiled cimgui static library to make it
 easier to use.
 
-Maintainers of this package can run the following command to build the
+Developers of this package can run the following command to build the
 pre-compiled cimgui static library for the running host as well as the
 corresponding header files:
 
