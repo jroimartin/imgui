@@ -13,8 +13,9 @@ import "github.com/go-gl/glfw/v3.3/glfw"
 
 // InitForOpenGL initializes the GLFW backend for OpenGL.
 func InitForOpenGL(win *glfw.Window, installCallbacks bool) bool {
-	ret := C.ImGui_ImplGlfw_InitForOpenGL((*C.GLFWwindow)(win.Handle()), C._Bool(installCallbacks))
-	return bool(ret)
+	cWin := (*C.GLFWwindow)(win.Handle())
+	cInstallCallbacks := C._Bool(installCallbacks)
+	return bool(C.ImGui_ImplGlfw_InitForOpenGL(cWin, cInstallCallbacks))
 }
 
 // Shutdown terminates the GLFW backend.

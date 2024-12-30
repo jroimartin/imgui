@@ -18,9 +18,9 @@ import (
 
 // Init initializes the OpenGL backend.
 func Init(glslVersion string) bool {
-	cs := C.CString(glslVersion)
-	defer C.free(unsafe.Pointer(cs))
-	return bool(C.ImGui_ImplOpenGL3_Init(cs))
+	cGlslVersion := C.CString(glslVersion)
+	defer C.free(unsafe.Pointer(cGlslVersion))
+	return bool(C.ImGui_ImplOpenGL3_Init(cGlslVersion))
 }
 
 // Shutdown terminates the OpenGL backend.
@@ -35,5 +35,6 @@ func NewFrame() {
 
 // RenderDrawData renders draw data.
 func RenderDrawData(drawData *imgui.DrawData) {
-	C.ImGui_ImplOpenGL3_RenderDrawData((*C.ImDrawData)(drawData.Ptr()))
+	cDrawData := (*C.ImDrawData)(drawData.Ptr())
+	C.ImGui_ImplOpenGL3_RenderDrawData(cDrawData)
 }
