@@ -132,7 +132,7 @@ func main() {
 	uniformLocation := gl.GetUniformLocation(shaderProgram, gl.Str("uColor\x00"))
 
 	winIsOpen := true
-	triangleColor := [4]float32{1.0, 0.5, 0.2, 1.0}
+	triangleColor := imgui.Color4{R: 1.0, G: 0.5, B: 0.2, A: 1.0}
 
 	for !win.ShouldClose() {
 		glfw.PollEvents()
@@ -155,7 +155,7 @@ func main() {
 		gl.Clear(gl.COLOR_BUFFER_BIT)
 
 		gl.UseProgram(shaderProgram)
-		gl.Uniform4f(uniformLocation, triangleColor[0], triangleColor[1], triangleColor[2], triangleColor[3])
+		gl.Uniform4f(uniformLocation, triangleColor.R, triangleColor.G, triangleColor.B, triangleColor.A)
 		gl.BindVertexArray(vao)
 		gl.DrawArrays(gl.TRIANGLES, 0, 3)
 
