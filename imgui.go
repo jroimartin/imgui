@@ -114,26 +114,19 @@ func CreateContext(fontAtlas *FontAtlas) *GuiContext {
 	}
 }
 
-// Ptr returns an unsafe pointer to the underlying C type.
-func (ctx *GuiContext) Ptr() unsafe.Pointer {
-	return unsafe.Pointer(ctx.data)
-}
-
 // Destroy destroys the context.
 func (ctx *GuiContext) Destroy() {
 	C.igDestroyContext(ctx.data)
 }
 
+// Ptr returns an unsafe pointer to the underlying C type.
+func (ctx *GuiContext) Ptr() unsafe.Pointer {
+	return unsafe.Pointer(ctx.data)
+}
+
 // DrawData contains the draw data required to render a frame.
 type DrawData struct {
 	data *C.ImDrawData
-}
-
-// NewDrawData returns a new [DrawData] value.
-func NewDrawData() *DrawData {
-	return &DrawData{
-		data: C.ImDrawData_ImDrawData(),
-	}
 }
 
 // Ptr returns an unsafe pointer to the underlying C type.
@@ -144,13 +137,6 @@ func (data *DrawData) Ptr() unsafe.Pointer {
 // FontAtlas represents a font atlas.
 type FontAtlas struct {
 	data *C.ImFontAtlas
-}
-
-// NewFontAtlas returns a new [FontAtlas] value.
-func NewFontAtlas() *FontAtlas {
-	return &FontAtlas{
-		data: C.ImFontAtlas_ImFontAtlas(),
-	}
 }
 
 // Ptr returns an unsafe pointer to the underlying C type.
