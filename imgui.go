@@ -65,27 +65,28 @@ func End() {
 
 // SetNextWindowPos sets the positions of the next window.
 func SetNextWindowPos(pos Vec2, cond int, pivot Vec2) {
-	cPos := pos.toImVec2()
+	cPos := pos.toCImVec2()
 	cCond := C.ImGuiCond(cond)
-	cPivot := pivot.toImVec2()
+	cPivot := pivot.toCImVec2()
 	C.igSetNextWindowPos(cPos, cCond, cPivot)
 }
 
 // SetNextWindowSize sets the size of the next window.
 func SetNextWindowSize(size Vec2, cond int) {
-	cSize := size.toImVec2()
+	cSize := size.toCImVec2()
 	cCond := C.ImGuiCond(cond)
 	C.igSetNextWindowSize(cSize, cCond)
 }
 
 // ColorEdit4 adds a color picker widget. col reports the selected
 // color. It returns whether the color has changed.
-func ColorEdit4(label string, col *[4]float32, flags ColorEditFlags) bool {
+func ColorEdit4(label string, col *Color4, flags ColorEditFlags) bool {
 	cLabel := C.CString(label)
 	defer C.free(unsafe.Pointer(cLabel))
-	cCol := (*C.float)(&col[0])
+	cCol := col.toCFloats()
 	cFlags := C.ImGuiColorEditFlags(flags)
-	retval := C.igColorEdit4(cLabel, cCol, cFlags)
+	retval := C.igColorEdit4(cLabel, &cCol[0], cFlags)
+	*col = newColor4FromCFloats(cCol)
 	return bool(retval)
 }
 
@@ -232,13 +233,13 @@ func (vp *Viewport) Ptr() unsafe.Pointer {
 // GetWorkpos returns the position of the viewport minus task bars,
 // menus bars and status bars.
 func (vp *Viewport) GetWorkpos() Vec2 {
-	return newVec2FromImVec2(vp.data.WorkPos)
+	return newVec2FromCImVec2(vp.data.WorkPos)
 }
 
 // GetWorksize returns the size of the viewport minus task bars, menus
 // bars and status bars.
 func (vp *Viewport) GetWorksize() Vec2 {
-	return newVec2FromImVec2(vp.data.WorkSize)
+	return newVec2FromCImVec2(vp.data.WorkSize)
 }
 
 // Vec2 represents a two-dimensional vector.
@@ -246,12 +247,29 @@ type Vec2 struct {
 	X, Y float32
 }
 
-// fromImVec2 creates a new [Vec2] from its C counterpart.
-func newVec2FromImVec2(v C.ImVec2) Vec2 {
+// newVec2FromCImVec2 creates a new [Vec2] value from its C
+// counterpart.
+func newVec2FromCImVec2(v C.ImVec2) Vec2 {
 	return Vec2{X: float32(v.x), Y: float32(v.y)}
 }
 
-// toImVec2 converts a [Vec2] into its C counterpart.
-func (v *Vec2) toImVec2() C.ImVec2 {
+// toCImVec2 converts a [Vec2] value into its C counterpart.
+func (v *Vec2) toCImVec2() C.ImVec2 {
 	return C.ImVec2{x: C.float(v.X), y: C.float(v.Y)}
+}
+
+// Color4 represents a color in RGBA format.
+type Color4 struct {
+	R, G, B, A float32
+}
+
+// newColor4FromCFloats creates a new [Color4] value from a C floats
+// array.
+func newColor4FromCFloats(s [4]C.float) Color4 {
+	return Color4{R: float32(s[0]), G: float32(s[1]), B: float32(s[2]), A: float32(s[3])}
+}
+
+// toCFloats converts a [Color4] value into a C floats array.
+func (c *Color4) toCFloats() [4]C.float {
+	return [4]C.float{C.float(c.R), C.float(c.G), C.float(c.B), C.float(c.A)}
 }
