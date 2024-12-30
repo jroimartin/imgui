@@ -1,5 +1,4 @@
-// Demo is a simple program that shows how to use imgui with the GLFW
-// and OpenGL backends.
+// Demo is a simple program that shows Dear ImGui demo window.
 package main
 
 import (
