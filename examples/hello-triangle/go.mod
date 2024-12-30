@@ -1,4 +1,4 @@
-module github.com/jroimartin/imgui/examples/demo
+module github.com/jroimartin/imgui/examples/hello-triangle
 
 go 1.23.4
 
