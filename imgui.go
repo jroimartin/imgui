@@ -172,28 +172,45 @@ func (io *IO) Ptr() unsafe.Pointer {
 	return unsafe.Pointer(io.data)
 }
 
+// ConfigFlags represents the configuration flags.
+type ConfigFlags = C.ImGuiConfigFlags
+
+// Configuration flags.
+const (
+	ConfigFlagsNavEnableKeyboard = ConfigFlags(C.ImGuiConfigFlags_NavEnableKeyboard)
+	ConfigFlagsDockingEnable = ConfigFlags(C.ImGuiConfigFlags_DockingEnable)
+)
+
 // SetConfigFlags sets the configuration flags.
-func (io *IO) SetConfigFlags(flags int) {
+func (io *IO) SetConfigFlags(flags ConfigFlags) {
 	io.data.ConfigFlags = C.ImGuiConfigFlags(flags)
 }
 
 // ConfigFlags returns the configuration flags.
-func (io *IO) ConfigFlags() int {
-	return int(io.data.ConfigFlags)
+func (io *IO) ConfigFlags() ConfigFlags {
+	return ConfigFlags(io.data.ConfigFlags)
 }
 
 // SetIniFilename sets the path of the .ini file. If name is empty, it
 // disables automatic load/save. Note that this function allocates a C
 // string internally which is leaked.
 func (io *IO) SetIniFilename(name string) {
-	io.data.IniFilename = C.CString(name)
+	var cname *C.char
+	if name != "" {
+		cname = C.CString(name)
+	}
+	io.data.IniFilename = cname
 }
 
 // SetLogFilename sets the path of the .log file. If name is empty, it
 // disables logging. Note that this function allocates a C string
 // internally which is leaked.
 func (io *IO) SetLogFilename(name string) {
-	io.data.LogFilename = C.CString(name)
+	var cname *C.char
+	if name != "" {
+		cname = C.CString(name)
+	}
+	io.data.LogFilename = cname
 }
 
 // Viewport represents the platform Window created by the application
