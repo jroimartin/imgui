@@ -15,8 +15,8 @@ import (
 )
 
 const (
-	initialWidth  = 800
-	initialHeight = 600
+	initialWidth  = 1220
+	initialHeight = 720
 )
 
 func main() {
