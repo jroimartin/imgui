@@ -8,12 +8,12 @@ package glfw
 // #include <cimgui.h>
 // #include <cimgui_impl.h>
 import "C"
+import "unsafe"
 
-import "github.com/go-gl/glfw/v3.3/glfw"
-
-// InitForOpenGL initializes the GLFW backend for OpenGL.
-func InitForOpenGL(win *glfw.Window, installCallbacks bool) bool {
-	cWin := (*C.GLFWwindow)(win.Handle())
+// InitForOpenGL initializes the GLFW backend for OpenGL. win is a
+// GLFWwindow C pointer.
+func InitForOpenGL(win unsafe.Pointer, installCallbacks bool) bool {
+	cWin := (*C.GLFWwindow)(win)
 	cInstallCallbacks := C._Bool(installCallbacks)
 	return bool(C.ImGui_ImplGlfw_InitForOpenGL(cWin, cInstallCallbacks))
 }
