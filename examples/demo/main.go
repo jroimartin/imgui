@@ -48,7 +48,7 @@ func main() {
 	igCtx := imgui.CreateContext(nil)
 	defer igCtx.Destroy()
 
-	if !igglfw.InitForOpenGL(win, true) {
+	if !igglfw.InitForOpenGL(win.Handle(), true) {
 		log.Fatal("failed to initialize ImGui GLFW backend")
 	}
 	defer igglfw.Shutdown()

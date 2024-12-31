@@ -119,7 +119,7 @@ func main() {
 	igIO.SetIniFilename("")
 	igIO.SetLogFilename("")
 
-	if !igglfw.InitForOpenGL(win, true) {
+	if !igglfw.InitForOpenGL(win.Handle(), true) {
 		log.Fatal("failed to initialize ImGui GLFW backend")
 	}
 	defer igglfw.Shutdown()
