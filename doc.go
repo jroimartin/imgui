@@ -27,7 +27,7 @@ corresponding header files:
 If you are targeting wayland, specify the "wayland" build tag. For
 instance,
 
-	go run -tags wayland github.com/jroimartin/imgui/examples/glfw-opengl@latest
+	go run -tags wayland github.com/jroimartin/imgui/examples/hello-triangle@latest
 
 [Dear ImGui]: https://github.com/ocornut/imgui
 */
